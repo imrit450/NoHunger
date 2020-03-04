@@ -12,12 +12,23 @@ dependencies:
 
   cupertino_icons: ^0.1.2
   font_awesome_flutter: ^8.7.0
+  scoped_model: ^1.0.1
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
 flutter:
+  fonts:
+    - family: GillSansMT
+      fonts:
+        - asset: assets/fonts/gillsansmt.TTF
+        - asset: assets/fonts/gillsansmt_Bold.TTF
+        - asset: assets/fonts/gillsansmt_Condensed.TTF
+        - asset: assets/fonts/gillsansmt_Italic.TTF
+          style: normal
+
   assets:
     - assets/images/
   uses-material-design: true

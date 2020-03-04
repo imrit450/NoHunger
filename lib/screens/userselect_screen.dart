@@ -1,3 +1,4 @@
+import 'package:appcup/components/large_btn.dart';
 import 'package:appcup/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:appcup/components/reuseable_circle.dart';
@@ -9,68 +10,115 @@ class UserSelectScreen extends StatefulWidget {
 }
 
 class _UserSelectScreenState extends State<UserSelectScreen> {
+  String selectedUser = 'Donator';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       body: Container(
-        decoration: BoxDecoration(
-          color: Colors.grey
-        ),
         child: Column(
           children: <Widget>[
             SizedBox(
               width: double.infinity,
-              height: 300.0,
+              height: 200.0,
             ),
-            Text('Choose any one', style: TextStyle(
-              color: Colors.white
-            ),),
-            Text('Welcome you are a?', style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.w500
-            ),),
+            Text(
+              'Choose any one',
+              style: TextStyle(color: Colors.grey, fontSize: 20),
+            ),
+            Text(
+              'Welcome you are a?',
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.w500),
+            ),
             SizedBox(
-              height: 30,
+              height: 50,
             ),
             Row(
               children: <Widget>[
                 Expanded(
                   child: Column(
                     children: <Widget>[
-                      Container(
-                        child: Image.asset('assets/images/donator.png'),
-                        decoration: BoxDecoration(
-                          color: kTextColor,
-                          shape: BoxShape.circle
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedUser = 'Donator';
+                          });
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(
+                              left: 20, top: 20, bottom: 20, right: 10),
+                          child: selectedUser == 'Donator'
+                              ? Image.asset(
+                                  'assets/images/donatorIconActive.png')
+                              : Image.asset(
+                                  'assets/images/donatorIconInactive.png'),
                         ),
                       ),
                       SizedBox(
                         height: 20,
                       ),
-                      Text('Donator')
+                      Text('Donator'),
+                      Text(
+                        'You will donate\nfood to the\nneedy.',
+                        style: TextStyle(color: Colors.grey),
+                        textAlign: TextAlign.center,
+                      ),
                     ],
                   ),
                 ),
                 Expanded(
                   child: Column(
                     children: <Widget>[
-                      Container(
-                        child: Image.asset('assets/images/organisation.png'),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            selectedUser = 'Organisation';
+                          });
+                        },
+                        child: Container(
+                          margin: EdgeInsets.only(
+                              left: 20, top: 20, bottom: 20, right: 10),
+                          child: selectedUser == 'Organisation'
+                              ? Image.asset(
+                                  'assets/images/organisationIconActive.png')
+                              : Image.asset(
+                                  'assets/images/organisationIconInactive.png'),
+                          decoration: BoxDecoration(
+                              color: Colors.white, shape: BoxShape.circle),
                         ),
                       ),
                       SizedBox(
                         height: 20,
                       ),
                       Text('Organisation'),
-                      Text('You are a charity\norganisation that\ndonates food.')
+                      Text(
+                        'You are a charity\norganisation that\ndonates food.',
+                        style: TextStyle(color: Colors.grey),
+                        textAlign: TextAlign.center,
+                      )
                     ],
                   ),
                 ),
               ],
             ),
+            SizedBox(
+              height: 100,
+            ),
+            Hero(
+              tag: 'bottombtn',
+              child: LargeButton(
+                myText: 'Continue',
+                startColor: Color(0xFF00C14D),
+                endColor: Color(0xFF02DB96),
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/basicinfo_screen',
+                  );
+                },
+              ),
+            )
           ],
         ),
       ),

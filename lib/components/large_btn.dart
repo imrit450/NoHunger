@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 
 class LargeButton extends StatelessWidget {
-  LargeButton({this.myText, this.startColor, this.endColor, this.destination});
+  LargeButton({this.myText, this.startColor, this.endColor, this.onPressed});
 
   final String myText;
   final Color startColor;
   final Color endColor;
-  final String destination;
+  final Function onPressed;
 
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
       padding: const EdgeInsets.all(0),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-      onPressed: () {
-        Navigator.pushNamed(context, '/$destination');
-      },
+      onPressed: onPressed,
       textColor: Colors.white,
       child: Container(
         decoration: BoxDecoration(
