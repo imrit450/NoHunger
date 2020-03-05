@@ -8,6 +8,7 @@ import 'package:appcup/screens/orglogindetails_screen.dart';
 import 'package:appcup/components/inputfield.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 
 class OrganisationBasicInfo extends StatefulWidget {
   final String userSelected;
@@ -36,6 +37,10 @@ class _OrganisationBasicInfo extends State<OrganisationBasicInfo> {
   String phoneNum;
   Category selectedCategory;
   int brn;
+
+  picker() {
+    ImagePicker.pickImage(source: ImageSource.camera);
+  }
 
   List<Category> users = <Category>[
     const Category(
@@ -309,8 +314,15 @@ class _OrganisationBasicInfo extends State<OrganisationBasicInfo> {
                       value: _multiPick,
                     ),
                   ),
+                  FloatingActionButton(
+                    child: Icon(FontAwesomeIcons.camera),
+                    backgroundColor: Colors.grey,
+                    onPressed: () {
+                      picker();
+                    },
+                  ),
                   new Padding(
-                    padding: const EdgeInsets.only(top: 50.0, bottom: 20.0),
+                    padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
                     child: new RaisedButton(
                       onPressed: () => _openFileExplorer(),
                       child: new Text("Open file picker"),
