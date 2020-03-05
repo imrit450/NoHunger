@@ -1,6 +1,6 @@
 import 'package:appcup/components/large_btn.dart';
 import 'package:appcup/constants.dart';
-import 'package:appcup/screens/logindetails_screen.dart';
+import 'package:appcup/screens/signup_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:appcup/components/inputfield.dart';
@@ -8,13 +8,9 @@ import 'package:appcup/models/user.dart';
 
 class BasicInfoScreen extends StatefulWidget {
   final String userSelected;
-  BasicInfoScreen(
-      {Key key,
-        @required this.userSelected})
-      : super(key: key);
+  BasicInfoScreen({Key key, @required this.userSelected}) : super(key: key);
   @override
   _BasicInfoScreenState createState() => _BasicInfoScreenState(userSelected);
-
 }
 
 class _BasicInfoScreenState extends State<BasicInfoScreen> {
