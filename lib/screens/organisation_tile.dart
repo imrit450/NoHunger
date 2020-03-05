@@ -24,11 +24,11 @@ class OrganisationTile extends StatelessWidget {
             decoration: new BoxDecoration(
                 border: new Border(
                     right: new BorderSide(width: 1.0, color: Colors.white24))),
-            child: Icon(Icons.account_balance, color: Colors.green,),
+            child: Icon(Icons.account_balance, color: Colors.black,),
           ),
           title: Text(
             organisation.name,
-            style: TextStyle(color: Colors.green, fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
       // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
 
@@ -39,12 +39,12 @@ class OrganisationTile extends StatelessWidget {
                 child: Padding(
                     padding: EdgeInsets.only(left: 10.0),
                     child: Text(organisation.address,
-                        style: TextStyle(color: Colors.green))),
+                        style: TextStyle(color: Colors.black))),
               )
             ],
           ),
           trailing:
-          Icon(Icons.keyboard_arrow_right, color: Colors.green, size: 30.0),
+          Icon(Icons.keyboard_arrow_right, color: Colors.black, size: 30.0),
           onTap: () {
             Navigator.push(
                 context,

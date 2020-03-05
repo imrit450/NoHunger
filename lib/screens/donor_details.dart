@@ -76,7 +76,9 @@ class DonorDetails extends StatelessWidget {
                   children: <Widget>[
                     Text('Ingredients', style: TextStyle(fontSize: 20),),
                     Card(
+                        child: Container (
 
+                        ),
                     ),
                     Text('2', style: TextStyle(fontSize: 200),),
                     Text('2', style: TextStyle(fontSize: 200),),
