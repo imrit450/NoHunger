@@ -3,25 +3,17 @@ import 'package:appcup/controllers/authentication_controller.dart';
 import 'package:appcup/controllers/donor_home_controller.dart';
 import 'package:appcup/models/user.dart';
 import 'package:appcup/screens/organisations_list.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'settings.dart';
-import 'donations.dart';
 
-class DonorHome extends StatefulWidget {
+class OrganisationHome extends StatefulWidget {
   @override
-  _DonorHomeState createState() => _DonorHomeState();
+  _OrganisationHomeState createState() => _OrganisationHomeState();
 }
 
-class _DonorHomeState extends State<DonorHome> {
+class _OrganisationHomeState extends State<OrganisationHome> {
   final AuthenticationController _auth = AuthenticationController();
-  final _pageOptions = [
-    DonorHome(),
-    Donations(),
-    Settings(),
-  ];
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -29,42 +21,10 @@ class _DonorHomeState extends State<DonorHome> {
       child: StreamProvider<List<OrganisationUserData>>.value(
         value: DonorHomeController().organisations,
         child: Scaffold(
-          bottomNavigationBar: Container(
-            padding: EdgeInsets.only(top: 20),
-            decoration: BoxDecoration(color: kDarkGrey),
-            child: CurvedNavigationBar(
-              color: Colors.white,
-              backgroundColor: kDarkGrey,
-              buttonBackgroundColor: Colors.white,
-              height: 50,
-              items: <Widget>[
-                Icon(
-                  FontAwesomeIcons.plus,
-                  size: 20,
-                  color: Colors.black,
-                ),
-                Icon(
-                  FontAwesomeIcons.home,
-                  size: 20,
-                  color: Colors.black,
-                ),
-                Icon(
-                  FontAwesomeIcons.cog,
-                  size: 20,
-                  color: Colors.black,
-                ),
-              ],
-              animationDuration: Duration(milliseconds: 400),
-              index: 1,
-              onTap: (index) {
-                setState(() {});
-              },
-            ),
-          ),
-          backgroundColor: kDarkGrey,
+          backgroundColor: Colors.yellow[50],
           appBar: AppBar(
             title: Text("NoHunger"),
-            backgroundColor: Colors.transparent,
+            backgroundColor: Colors.yellow,
             elevation: 0.0,
             actions: <Widget>[
               FlatButton.icon(
@@ -78,7 +38,6 @@ class _DonorHomeState extends State<DonorHome> {
               )
             ],
           ),
-          body: Container(child: OrganisationsList()),
         ),
       ),
     );

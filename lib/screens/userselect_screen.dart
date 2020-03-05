@@ -116,15 +116,23 @@ class _UserSelectScreenState extends State<UserSelectScreen> {
               tag: 'bottombtn',
               child: LargeButton(
                 myText: 'Continue',
-                startColor: Color(0xFF00C14D),
-                endColor: Color(0xFF02DB96),
+                startColor: selectedUser == 'Donator'
+                    ? Color(0xFF00C14D)
+                    : kYellowTextColor,
+                endColor: selectedUser == 'Donator'
+                    ? Color(0xFF02DB96)
+                    : kYellowDarkerColor,
                 onPressed: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => selectedUser == 'Donator' ? BasicInfoScreen(
-                            userSelected: selectedUser,
-                          ): OrganisationBasicInfo(userSelected: selectedUser,)));
+                          builder: (context) => selectedUser == 'Donator'
+                              ? BasicInfoScreen(
+                                  userSelected: selectedUser,
+                                )
+                              : OrganisationBasicInfo(
+                                  userSelected: selectedUser,
+                                )));
                 },
               ),
             )

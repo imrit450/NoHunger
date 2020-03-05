@@ -11,8 +11,8 @@ class OrganisationsList extends StatefulWidget {
 class _OrganisationsListState extends State<OrganisationsList> {
   @override
   Widget build(BuildContext context) {
-
-    final organisations = Provider.of<List<OrganisationUserData>>(context) ?? [];
+    final organisations =
+        Provider.of<List<OrganisationUserData>>(context) ?? [];
 
     return ListView.builder(
       itemCount: organisations.length,

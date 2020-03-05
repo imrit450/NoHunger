@@ -200,15 +200,13 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
     showSpinner = true;
     if (userSelected == "Donator") {
       signUpDonorController.enterDonorData(name, phoneNum, email, address);
+      _auth.registerWithEmailAndPassword(email, password);
       Navigator.push(
           context,
           MaterialPageRoute(
               builder: (context) => DonorScreen(
                     donorName: name,
                   )));
-    } else if (userSelected == "Organisation") {
-//      signUpOrganisationController.enterOrganisationData(name, contact_no, email, address, brn_no, dietary_rules, days_accept, category)
     }
-    _auth.registerWithEmailAndPassword(email, password);
   }
 }

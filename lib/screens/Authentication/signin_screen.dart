@@ -15,6 +15,7 @@ class SignIn extends StatefulWidget {
 class _SignInState extends State<SignIn> {
   final AuthenticationController _auth = AuthenticationController();
   final _formKey = GlobalKey<FormState>();
+  final globalKey = GlobalKey<ScaffoldState>();
   String error = '';
   String email = '';
   String password = '';
@@ -23,6 +24,7 @@ class _SignInState extends State<SignIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: globalKey,
       backgroundColor: Colors.white,
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
@@ -94,7 +96,9 @@ class _SignInState extends State<SignIn> {
 
                         if (result == null) {
                           setState(() {
-                            error = 'Please Enter a Registered Account';
+                            error = 'Error logging in. Please try again.';
+                            globalKey.currentState
+                                .showSnackBar(SnackBar(content: Text(error)));
                             showSpinner = false;
                           });
                         } else

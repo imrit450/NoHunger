@@ -1,33 +1,33 @@
 import 'package:appcup/components/inputfieldyellow.dart';
-import 'package:appcup/components/large_btn.dart';
 import 'package:appcup/constants.dart';
 import 'package:appcup/controllers/authentication_controller.dart';
 import 'package:appcup/controllers/sign_up_donor.dart';
 import 'package:appcup/controllers/sign_up_organisation.dart';
-import 'package:appcup/main.dart';
-import 'package:appcup/models/user.dart';
-import 'package:appcup/screens/donor_screen.dart';
+import 'organisation_home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:appcup/components/inputfield.dart';
 
 class OrgLoginDetailsScreen extends StatefulWidget {
   final String userSelected;
   final String name;
   final String address;
   final String phoneNum;
+  final String brn;
+  final String selectedCategory;
 
   OrgLoginDetailsScreen(
       {Key key,
-        @required this.userSelected,
+      @required this.userSelected,
       @required this.name,
       @required this.address,
-      @required this.phoneNum})
+      @required this.phoneNum,
+      @required this.brn,
+      @required this.selectedCategory})
       : super(key: key);
 
   @override
-  _OrgLoginDetailsScreenState createState() =>
-      _OrgLoginDetailsScreenState(userSelected, name, address, phoneNum);
+  _OrgLoginDetailsScreenState createState() => _OrgLoginDetailsScreenState(
+      userSelected, name, address, phoneNum, brn, selectedCategory);
 }
 
 class _OrgLoginDetailsScreenState extends State<OrgLoginDetailsScreen> {
@@ -35,7 +35,13 @@ class _OrgLoginDetailsScreenState extends State<OrgLoginDetailsScreen> {
   String name;
   String address;
   String phoneNum;
-  _OrgLoginDetailsScreenState(this.userSelected, this.name, this.address, this.phoneNum);
+  String brn;
+  String selectedCategory;
+  String dietaryRules = "No Dietary Rules";
+  String days_accept = "Everyday";
+
+  _OrgLoginDetailsScreenState(this.userSelected, this.name, this.address,
+      this.phoneNum, this.brn, this.selectedCategory);
 
   String email;
   String username;
@@ -47,7 +53,8 @@ class _OrgLoginDetailsScreenState extends State<OrgLoginDetailsScreen> {
   bool correctPassword = false;
 
   SignUpDonorController signUpDonorController = new SignUpDonorController();
-  SignUpOrganisationController signUpOrganisationController = new SignUpOrganisationController();
+  SignUpOrganisationController signUpOrganisationController =
+      new SignUpOrganisationController();
   AuthenticationController _auth = new AuthenticationController();
 
   @override
@@ -189,18 +196,13 @@ class _OrgLoginDetailsScreenState extends State<OrgLoginDetailsScreen> {
     );
   }
 
-  Future<void> runAuthentication() async{
-    if(userSelected == "Donator") {
-      signUpDonorController.enterDonorData(name, phoneNum, email, address);
+  Future<void> runAuthentication() async {
+    if (userSelected == "Organisation") {
+      signUpOrganisationController.enterOrganisationData(name, phoneNum, email,
+          address, brn, dietaryRules, days_accept, selectedCategory);
+      _auth.registerWithEmailAndPassword(email, password);
       Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => DonorScreen(
-                donorName: name,
-              )));
-    } else if(userSelected == "Organisation") {
-//      signUpOrganisationController.enterOrganisationData(name, contact_no, email, address, brn_no, dietary_rules, days_accept, category)
+          context, MaterialPageRoute(builder: (context) => OrganisationHome()));
     }
-    _auth.registerWithEmailAndPassword(email, password);
   }
 }

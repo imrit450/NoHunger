@@ -5,14 +5,12 @@ import 'package:appcup/controllers/donor_home_controller.dart';
 import 'package:appcup/screens/organisations_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'user_profile.dart';
 
 import 'package:appcup/models/details_page.dart';
 import 'package:appcup/models/lessons.dart';
 
-
 class ListPage extends StatefulWidget {
-  ListPage({Key key,@required this.title}) : super(key: key);
+  ListPage({Key key, @required this.title}) : super(key: key);
 
   final String title;
 
@@ -22,79 +20,74 @@ class ListPage extends StatefulWidget {
 
 class _ListPageState extends State<ListPage> {
   OrganisationUserData organisation;
- static String title;
- List lessons;
- List users;
+  static String title;
+  List lessons;
+  List users;
 
- @override
- void initState() {
-   lessons = getLessons();
-   users = getUsers();
+  @override
+  void initState() {
+    lessons = getLessons();
+    users = getUsers();
 
-   print(users[0].name);
+    print(users[0].name);
 
-   super.initState();
+    super.initState();
+  }
 
- }
-
-
- _ListPageState(title);
-
-
+  _ListPageState(title);
 
   @override
   Widget build(BuildContext context) {
     OrganisationUserData organisation;
 
-
-    final organisations = Provider.of<List<OrganisationUserData>>(context) ?? [];
-
+    final organisations =
+        Provider.of<List<OrganisationUserData>>(context) ?? [];
 
     ListTile makeListTile(Lesson lesson) => ListTile(
-      contentPadding:
-      EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-      leading: Container(
-        padding: EdgeInsets.only(right: 12.0),
-        decoration: new BoxDecoration(
-            border: new Border(
-                right: new BorderSide(width: 1.0, color: Colors.white24))),
-        child: Icon(Icons.autorenew, color: Colors.white),
-      ),
-      title: Text(
-        organisation.name,
-        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-      ),
-      // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
+          contentPadding:
+              EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          leading: Container(
+            padding: EdgeInsets.only(right: 12.0),
+            decoration: new BoxDecoration(
+                border: new Border(
+                    right: new BorderSide(width: 1.0, color: Colors.white24))),
+            child: Icon(Icons.autorenew, color: Colors.white),
+          ),
+          title: Text(
+            organisation.name,
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
 
-      subtitle: Row(
-        children: <Widget>[
-          Expanded(
-            flex: 4,
-            child: Padding(
-                padding: EdgeInsets.only(left: 10.0),
-                child: Text(organisation.address,
-                    style: TextStyle(color: Colors.white))),
-          )
-        ],
-      ),
-      trailing:
-      Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => DetailPage(lesson: lesson)));
-      },
-    );
+          subtitle: Row(
+            children: <Widget>[
+              Expanded(
+                flex: 4,
+                child: Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: Text(organisation.address,
+                        style: TextStyle(color: Colors.white))),
+              )
+            ],
+          ),
+          trailing:
+              Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => DetailPage(lesson: lesson)));
+          },
+        );
 
     Card makeCard(Lesson lesson) => Card(
-      elevation: 8.0,
-      margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
-      child: Container(
-        decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
-        child: makeListTile(lesson),
-      ),
-    );
+          elevation: 8.0,
+          margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+          child: Container(
+            decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+            child: makeListTile(lesson),
+          ),
+        );
 
     final makeBody = Container(
       // decoration: BoxDecoration(color: Color.fromRGBO(58, 66, 86, 1.0)),
@@ -108,7 +101,7 @@ class _ListPageState extends State<ListPage> {
       ),
     );
 
-    final makeBottom= Container(
+    final makeBottom = Container(
       height: 55.0,
       child: BottomAppBar(
         color: Color.fromRGBO(58, 66, 86, 1.0),
@@ -169,60 +162,59 @@ List getLessons() {
         indicatorValue: 0.33,
         price: 20,
         content:
-        "Start by taking a couple of minutes to read the info in this section. Launch your app and click on the Settings menu.  While on the settings page, click the Save button.  You should see a circular progress indicator display in the middle of the page and the user interface elements cannot be clicked due to the modal barrier that is constructed."),
+            "Start by taking a couple of minutes to read the info in this section. Launch your app and click on the Settings menu.  While on the settings page, click the Save button.  You should see a circular progress indicator display in the middle of the page and the user interface elements cannot be clicked due to the modal barrier that is constructed."),
     Lesson(
         title: "Observation at Junctions",
         level: "Beginner",
         indicatorValue: 0.33,
         price: 50,
         content:
-        "Start by taking a couple of minutes to read the info in this section. Launch your app and click on the Settings menu.  While on the settings page, click the Save button.  You should see a circular progress indicator display in the middle of the page and the user interface elements cannot be clicked due to the modal barrier that is constructed."),
+            "Start by taking a couple of minutes to read the info in this section. Launch your app and click on the Settings menu.  While on the settings page, click the Save button.  You should see a circular progress indicator display in the middle of the page and the user interface elements cannot be clicked due to the modal barrier that is constructed."),
     Lesson(
         title: "Reverse parallel Parking",
         level: "Intermidiate",
         indicatorValue: 0.66,
         price: 30,
         content:
-        "Start by taking a couple of minutes to read the info in this section. Launch your app and click on the Settings menu.  While on the settings page, click the Save button.  You should see a circular progress indicator display in the middle of the page and the user interface elements cannot be clicked due to the modal barrier that is constructed."),
+            "Start by taking a couple of minutes to read the info in this section. Launch your app and click on the Settings menu.  While on the settings page, click the Save button.  You should see a circular progress indicator display in the middle of the page and the user interface elements cannot be clicked due to the modal barrier that is constructed."),
     Lesson(
         title: "Reversing around the corner",
         level: "Intermidiate",
         indicatorValue: 0.66,
         price: 30,
         content:
-        "Start by taking a couple of minutes to read the info in this section. Launch your app and click on the Settings menu.  While on the settings page, click the Save button.  You should see a circular progress indicator display in the middle of the page and the user interface elements cannot be clicked due to the modal barrier that is constructed."),
+            "Start by taking a couple of minutes to read the info in this section. Launch your app and click on the Settings menu.  While on the settings page, click the Save button.  You should see a circular progress indicator display in the middle of the page and the user interface elements cannot be clicked due to the modal barrier that is constructed."),
     Lesson(
         title: "Incorrect Use of Signal",
         level: "Advanced",
         indicatorValue: 1.0,
         price: 50,
         content:
-        "Start by taking a couple of minutes to read the info in this section. Launch your app and click on the Settings menu.  While on the settings page, click the Save button.  You should see a circular progress indicator display in the middle of the page and the user interface elements cannot be clicked due to the modal barrier that is constructed."),
+            "Start by taking a couple of minutes to read the info in this section. Launch your app and click on the Settings menu.  While on the settings page, click the Save button.  You should see a circular progress indicator display in the middle of the page and the user interface elements cannot be clicked due to the modal barrier that is constructed."),
     Lesson(
         title: "Engine Challenges",
         level: "Advanced",
         indicatorValue: 1.0,
         price: 50,
         content:
-        "Start by taking a couple of minutes to read the info in this section. Launch your app and click on the Settings menu.  While on the settings page, click the Save button.  You should see a circular progress indicator display in the middle of the page and the user interface elements cannot be clicked due to the modal barrier that is constructed."),
+            "Start by taking a couple of minutes to read the info in this section. Launch your app and click on the Settings menu.  While on the settings page, click the Save button.  You should see a circular progress indicator display in the middle of the page and the user interface elements cannot be clicked due to the modal barrier that is constructed."),
     Lesson(
         title: "Self Driving Car",
         level: "Advanced",
         indicatorValue: 1.0,
         price: 50,
         content:
-        "Start by taking a couple of minutes to read the info in this section. Launch your app and click on the Settings menu.  While on the settings page, click the Save button.  You should see a circular progress indicator display in the middle of the page and the user interface elements cannot be clicked due to the modal barrier that is constructed.  ")
+            "Start by taking a couple of minutes to read the info in this section. Launch your app and click on the Settings menu.  While on the settings page, click the Save button.  You should see a circular progress indicator display in the middle of the page and the user interface elements cannot be clicked due to the modal barrier that is constructed.  ")
   ];
-
-
 }
-List getUsers(){
+
+List getUsers() {
   return [
     DonorUserData(
-        uid: 'sowoeo',
-        name: 'Ismail',
+      uid: 'sowoeo',
+      name: 'Ismail',
       contact_no: '59038907',
-      email: 'imrit450@gmail.com', 
+      email: 'imrit450@gmail.com',
       address: 'ROyal ROad Notre Dame',
     ),
   ];

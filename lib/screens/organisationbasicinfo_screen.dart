@@ -1,14 +1,16 @@
+import 'dart:io';
+
 import 'package:appcup/components/inputfieldyellow.dart';
 import 'package:appcup/components/large_btn.dart';
 import 'package:appcup/constants.dart';
-import 'package:appcup/screens/signup_screen.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:appcup/screens/orglogindetails_screen.dart';
-import 'package:appcup/components/inputfield.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as p;
 
 class OrganisationBasicInfo extends StatefulWidget {
   final String userSelected;
@@ -36,11 +38,14 @@ class _OrganisationBasicInfo extends State<OrganisationBasicInfo> {
   String address;
   String phoneNum;
   Category selectedCategory;
-  int brn;
+  String brn;
 
-  picker() {
-    ImagePicker.pickImage(source: ImageSource.camera);
-  }
+  String fileType = '';
+  File file;
+  String fileName = '';
+  String operationText = '';
+  bool isUploaded = true;
+  String result = '';
 
   List<Category> users = <Category>[
     const Category(
@@ -64,19 +69,37 @@ class _OrganisationBasicInfo extends State<OrganisationBasicInfo> {
     const Category(
         'Health Charities',
         Icon(
-          Icons.mobile_screen_share,
+          FontAwesomeIcons.heartbeat,
           color: kYellowTextColor,
         )),
     const Category(
         'Education Charities',
         Icon(
-          FontAwesomeIcons.heartbeat,
+          FontAwesomeIcons.graduationCap,
           color: kYellowTextColor,
         )),
     const Category(
         'Arts & Culture Charties',
         Icon(
           FontAwesomeIcons.paintBrush,
+          color: kYellowTextColor,
+        )),
+    const Category(
+        'Distribution',
+        Icon(
+          FontAwesomeIcons.handshake,
+          color: kYellowTextColor,
+        )),
+    const Category(
+        'Orphanage',
+        Icon(
+          FontAwesomeIcons.babyCarriage,
+          color: kYellowTextColor,
+        )),
+    const Category(
+        'Home',
+        Icon(
+          FontAwesomeIcons.home,
           color: kYellowTextColor,
         )),
   ];
@@ -89,7 +112,7 @@ class _OrganisationBasicInfo extends State<OrganisationBasicInfo> {
     _controller.addListener(() => _extension = _controller.text);
   }
 
-  void _openFileExplorer() async {
+  Future<void> _openFileExplorer() async {
     if (_pickingType != FileType.CUSTOM || _hasValidMime) {
       setState(() => _loadingPath = true);
       try {
@@ -113,6 +136,31 @@ class _OrganisationBasicInfo extends State<OrganisationBasicInfo> {
             : _paths != null ? _paths.keys.toString() : '...';
       });
     }
+    file = await FilePicker.getFile(type: FileType.ANY);
+    fileName = p.basename(file.path);
+    setState(() {
+      fileName = p.basename(file.path);
+    });
+    print(fileName);
+  }
+
+  Future<void> picker() async {
+    file = await ImagePicker.pickImage(source: ImageSource.camera);
+    fileName = p.basename(file.path);
+    setState(() {
+      fileName = p.basename(file.path);
+    });
+    print(fileName);
+  }
+
+  Future<void> _uploadFile(File file, String filename) async {
+    StorageReference storageReference;
+    storageReference =
+        FirebaseStorage.instance.ref().child("certificates/$filename");
+    final StorageUploadTask uploadTask = storageReference.putFile(file);
+    final StorageTaskSnapshot downloadUrl = (await uploadTask.onComplete);
+    final String url = (await downloadUrl.ref.getDownloadURL());
+    print("URL is $url");
   }
 
   @override
@@ -196,7 +244,7 @@ class _OrganisationBasicInfo extends State<OrganisationBasicInfo> {
               iconName: 'brnicon.png',
               textType: TextInputType.number,
               onChanged: (value) {
-                phoneNum = value;
+                brn = value;
               },
             ),
             DropdownButton<Category>(
@@ -237,7 +285,7 @@ class _OrganisationBasicInfo extends State<OrganisationBasicInfo> {
                   Padding(
                     padding: EdgeInsets.only(top: 10.0),
                     child: Text(
-                      'Upload your certificate',
+                      'Upload your Certificate',
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w200),
                       textAlign: TextAlign.center,
@@ -249,37 +297,6 @@ class _OrganisationBasicInfo extends State<OrganisationBasicInfo> {
                   Icon(FontAwesomeIcons.arrowDown),
                   Padding(
                     padding: EdgeInsets.only(top: 40),
-                    child: new DropdownButton(
-                        hint: new Text('LOAD PATH FROM'),
-                        value: _pickingType,
-                        items: <DropdownMenuItem>[
-                          new DropdownMenuItem(
-                            child: new Text('FROM AUDIO'),
-                            value: FileType.AUDIO,
-                          ),
-                          new DropdownMenuItem(
-                            child: new Text('FROM IMAGE'),
-                            value: FileType.IMAGE,
-                          ),
-                          new DropdownMenuItem(
-                            child: new Text('FROM VIDEO'),
-                            value: FileType.VIDEO,
-                          ),
-                          new DropdownMenuItem(
-                            child: new Text('FROM ANY'),
-                            value: FileType.ANY,
-                          ),
-                          new DropdownMenuItem(
-                            child: new Text('CUSTOM FORMAT'),
-                            value: FileType.CUSTOM,
-                          ),
-                        ],
-                        onChanged: (value) => setState(() {
-                              _pickingType = value;
-                              if (_pickingType != FileType.CUSTOM) {
-                                _controller.text = _extension = '';
-                              }
-                            })),
                   ),
                   new ConstrainedBox(
                     constraints: BoxConstraints.tightFor(width: 100.0),
@@ -304,16 +321,6 @@ class _OrganisationBasicInfo extends State<OrganisationBasicInfo> {
                           )
                         : new Container(),
                   ),
-                  new ConstrainedBox(
-                    constraints: BoxConstraints.tightFor(width: 200.0),
-                    child: new SwitchListTile.adaptive(
-                      title: new Text('Pick multiple files',
-                          textAlign: TextAlign.right),
-                      onChanged: (bool value) =>
-                          setState(() => _multiPick = value),
-                      value: _multiPick,
-                    ),
-                  ),
                   FloatingActionButton(
                     child: Icon(FontAwesomeIcons.camera),
                     backgroundColor: Colors.grey,
@@ -325,7 +332,7 @@ class _OrganisationBasicInfo extends State<OrganisationBasicInfo> {
                     padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
                     child: new RaisedButton(
                       onPressed: () => _openFileExplorer(),
-                      child: new Text("Open file picker"),
+                      child: new Text("Open File Picker"),
                     ),
                   ),
                   new Builder(
@@ -336,8 +343,7 @@ class _OrganisationBasicInfo extends State<OrganisationBasicInfo> {
                         : _path != null || _paths != null
                             ? new Container(
                                 padding: const EdgeInsets.only(bottom: 30.0),
-                                height:
-                                    MediaQuery.of(context).size.height * 0.50,
+                                height: 100,
                                 child: new Scrollbar(
                                     child: new ListView.separated(
                                   itemCount: _paths != null && _paths.isNotEmpty
@@ -382,6 +388,7 @@ class _OrganisationBasicInfo extends State<OrganisationBasicInfo> {
                 endColor: kYellowTextColor,
                 onPressed: () {
                   try {
+                    _uploadFile(file, fileName);
                     Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -390,6 +397,8 @@ class _OrganisationBasicInfo extends State<OrganisationBasicInfo> {
                                   name: name,
                                   address: address,
                                   phoneNum: phoneNum,
+                                  brn: brn,
+                                  selectedCategory: selectedCategory.category,
                                 )));
                   } catch (e) {
                     print(e);
@@ -398,6 +407,7 @@ class _OrganisationBasicInfo extends State<OrganisationBasicInfo> {
                   print(name);
                   print(address);
                   print(phoneNum);
+                  print(brn);
                 },
               ),
             ),
