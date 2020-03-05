@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "520469939375",
+    "firebase_url": "https://appcup2020-5f038.firebaseio.com",
+    "project_id": "appcup2020-5f038",
+    "storage_bucket": "appcup2020-5f038.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520469939375:android:d8aaaac345c628c315005a",
+        "android_client_info": {
+          "package_name": "com.zafir.appcup_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520469939375-3vi3ba3mlo1eqt4kjpn7nh3pmg1t6pp2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAksvtaikcnQv_8KNTCvQSednFzsH5pV0s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "520469939375-3vi3ba3mlo1eqt4kjpn7nh3pmg1t6pp2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

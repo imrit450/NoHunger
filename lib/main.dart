@@ -1,3 +1,5 @@
+import 'package:appcup/screens/Authentication/signin_screen.dart';
+import 'package:appcup/screens/donor_home.dart';
 import 'package:appcup/screens/userselect_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:appcup/screens/welcome_screen.dart';
@@ -25,7 +27,9 @@ class MyApp extends StatelessWidget {
         '/userselect_screen': (BuildContext context) => UserSelectScreen(),
         '/basicinfo_screen': (BuildContext context) => BasicInfoScreen(),
         '/logindetails_screen': (BuildContext context) => LoginDetailsScreen(),
-        '/donor_screen': (BuildContext context) => DonorScreen(),
+        '/donor_screen': (BuildContext context) => DonorHome(),
+        '/signin_screen': (BuildContext context) => SignIn(),
+
       },
     );
   }

@@ -1,9 +1,16 @@
+import 'package:appcup/screens/donor_home.dart';
 import 'package:flutter/material.dart';
-import 'logindetails_screen.dart';
-import 'package:appcup/constants.dart';
+import 'package:appcup/controllers/authentication_controller.dart';
+import 'package:appcup/controllers/donor_home_controller.dart';
+import 'package:appcup/models/user.dart';
+import 'package:appcup/screens/organisations_list.dart';
+import 'package:appcup/models/list_page.dart';
+import 'package:provider/provider.dart';
 
 class DonorScreen extends StatefulWidget {
   final String donorName;
+
+  final AuthenticationController _auth = AuthenticationController();
 
   DonorScreen({Key key, @required this.donorName}) : super(key: key);
 
@@ -14,7 +21,7 @@ class DonorScreen extends StatefulWidget {
 class _DonorScreenState extends State<DonorScreen> {
   String donorName;
 
-  _DonorScreenState(name);
+  _DonorScreenState(donorName);
   @override
   void initState() {
     // TODO: implement initState
@@ -26,11 +33,10 @@ class _DonorScreenState extends State<DonorScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: _onBackPressed,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text(donorName.toString()),
-        ),
-      ),
+      child: StreamProvider<List<OrganisationUserData>>.value(
+          value: DonorHomeController().organisations,
+        child: DonorHome()
+      )
     );
   }
 

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-const kTextColor = Color(0xFF02DB96);
+const kGreenTextColor = Color(0xFF02DB96);
+
+const kYellowTextColor = Color(0xFFDCD907);
+const kYellowDarkerColor = Color(0xFFC1AE00);
 
 const kTextStyle =
     TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: Colors.white);
@@ -8,7 +11,7 @@ const kTextStyle =
 const kTextStyleAccent = TextStyle(
   fontSize: 15,
   fontWeight: FontWeight.bold,
-  color: kTextColor,
+  color: kGreenTextColor,
 );
 
 const shadows = <Shadow>[

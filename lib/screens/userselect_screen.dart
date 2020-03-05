@@ -1,6 +1,8 @@
 import 'package:appcup/components/large_btn.dart';
 import 'package:appcup/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:appcup/screens/basicinfo_screen.dart';
+import 'package:appcup/screens/organisationbasicinfo_screen.dart';
 import 'package:appcup/components/reuseable_circle.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -21,8 +23,13 @@ class _UserSelectScreenState extends State<UserSelectScreen> {
           children: <Widget>[
             SizedBox(
               width: double.infinity,
-              height: 200.0,
+              height: 80.0,
             ),
+            Container(
+                height: 100,
+                width: 100,
+                margin: EdgeInsets.all(20),
+                child: Image.asset('assets/images/logo.png')),
             Text(
               'Choose any one',
               style: TextStyle(color: Colors.grey, fontSize: 20),
@@ -112,10 +119,12 @@ class _UserSelectScreenState extends State<UserSelectScreen> {
                 startColor: Color(0xFF00C14D),
                 endColor: Color(0xFF02DB96),
                 onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    '/basicinfo_screen',
-                  );
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => selectedUser == 'Donator' ? BasicInfoScreen(
+                            userSelected: selectedUser,
+                          ): OrganisationBasicInfo(userSelected: selectedUser,)));
                 },
               ),
             )

@@ -20,7 +20,7 @@ class WelcomeScreen extends StatelessWidget {
               height: 300.0,
             ),
             Text(
-              'Welcome to\nCharity',
+              'Welcome to\nNoHunger',
               style: TextStyle(
                   fontSize: 50,
                   fontWeight: FontWeight.bold,
@@ -45,7 +45,7 @@ class WelcomeScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.bold,
-                      color: kTextColor,
+                      color: kGreenTextColor,
                     ),
                     textAlign: TextAlign.center,
                   ),
@@ -59,8 +59,8 @@ class WelcomeScreen extends StatelessWidget {
               tag: 'bottombtn',
               child: LargeButton(
                 myText: 'Get Started',
-                startColor: kTextColor,
-                endColor: kTextColor,
+                startColor: kGreenTextColor,
+                endColor: kGreenTextColor,
                 onPressed: () {
                   Navigator.pushNamed(context, '/userselect_screen');
                 },
@@ -77,7 +77,7 @@ class WelcomeScreen extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/donor_screen');
+                      Navigator.pushNamed(context, '/signin_screen');
                     },
                     child: Text(
                       'Sign In',

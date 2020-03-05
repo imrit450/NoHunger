@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:appcup/constants.dart';
 
-class InputField extends StatelessWidget {
+class InputFieldYellow extends StatelessWidget {
   String textPlaceholder;
   String iconName;
   Function onChanged;
@@ -9,7 +9,7 @@ class InputField extends StatelessWidget {
   bool obscure = false;
   Function validator;
 
-  InputField(
+  InputFieldYellow(
       {this.textPlaceholder,
       this.iconName,
       this.textType,
@@ -42,11 +42,11 @@ class InputField extends StatelessWidget {
                 borderRadius: BorderRadius.all(Radius.circular(32.0)),
               ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: kGreenTextColor, width: 1.0),
+                borderSide: BorderSide(color: kYellowTextColor, width: 1.0),
                 borderRadius: BorderRadius.all(Radius.circular(32.0)),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: kGreenTextColor, width: 2.0),
+                borderSide: BorderSide(color: kYellowTextColor, width: 2.0),
                 borderRadius: BorderRadius.all(Radius.circular(32.0)),
               ),
             ),

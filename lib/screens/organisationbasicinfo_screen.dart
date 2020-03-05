@@ -1,3 +1,4 @@
+import 'package:appcup/components/inputfieldyellow.dart';
 import 'package:appcup/components/large_btn.dart';
 import 'package:appcup/constants.dart';
 import 'package:appcup/screens/logindetails_screen.dart';
@@ -6,21 +7,21 @@ import 'package:flutter/material.dart';
 import 'package:appcup/components/inputfield.dart';
 import 'package:appcup/models/user.dart';
 
-class BasicInfoScreen extends StatefulWidget {
+class OrganisationBasicInfo extends StatefulWidget {
   final String userSelected;
-  BasicInfoScreen(
+  OrganisationBasicInfo(
       {Key key,
         @required this.userSelected})
       : super(key: key);
   @override
-  _BasicInfoScreenState createState() => _BasicInfoScreenState(userSelected);
+  _OrganisationBasicInfo createState() => _OrganisationBasicInfo(userSelected);
 
 }
 
-class _BasicInfoScreenState extends State<BasicInfoScreen> {
+class _OrganisationBasicInfo extends State<OrganisationBasicInfo> {
   String userSelected;
 
-  _BasicInfoScreenState(this.userSelected);
+  _OrganisationBasicInfo(this.userSelected);
 
   String name;
   String address;
@@ -57,7 +58,7 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                                 style: TextStyle(
                                     shadows: shadows,
                                     fontWeight: FontWeight.bold,
-                                    color: kGreenTextColor),
+                                    color: kYellowTextColor),
                               )
                             ],
                           ),
@@ -79,7 +80,7 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
             SizedBox(
               height: 30,
             ),
-            InputField(
+            InputFieldYellow(
               textPlaceholder: 'Name',
               iconName: 'UserIcon.png',
               textType: TextInputType.text,
@@ -87,7 +88,7 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                 name = value;
               },
             ),
-            InputField(
+            InputFieldYellow(
               textPlaceholder: 'Address',
               iconName: 'AddressIcon.png',
               textType: TextInputType.text,
@@ -95,7 +96,7 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
                 address = value;
               },
             ),
-            InputField(
+            InputFieldYellow(
               textPlaceholder: 'Phone Number',
               iconName: 'PhoneIcon.png',
               textType: TextInputType.phone,
@@ -110,19 +111,19 @@ class _BasicInfoScreenState extends State<BasicInfoScreen> {
               tag: 'bottombtn',
               child: LargeButton(
                 myText: 'Next',
-                startColor: Color(0xFF00C14D),
-                endColor: Color(0xFF02DB96),
+                startColor: kYellowDarkerColor,
+                endColor: kYellowTextColor,
                 onPressed: () {
                   try {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
                             builder: (context) => LoginDetailsScreen(
-                                  userSelected: userSelected,
-                                  name: name,
-                                  address: address,
-                                  phoneNum: phoneNum,
-                                )));
+                              userSelected: userSelected,
+                              name: name,
+                              address: address,
+                              phoneNum: phoneNum,
+                            )));
                   } catch (e) {
                     print(e);
                     Navigator.pushNamed(context, '/basicinfo_screen');

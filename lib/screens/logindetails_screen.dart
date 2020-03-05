@@ -1,5 +1,8 @@
 import 'package:appcup/components/large_btn.dart';
 import 'package:appcup/constants.dart';
+import 'package:appcup/controllers/authentication_controller.dart';
+import 'package:appcup/controllers/sign_up_donor.dart';
+import 'package:appcup/controllers/sign_up_organisation.dart';
 import 'package:appcup/main.dart';
 import 'package:appcup/models/user.dart';
 import 'package:appcup/screens/donor_screen.dart';
@@ -8,12 +11,14 @@ import 'package:flutter/material.dart';
 import 'package:appcup/components/inputfield.dart';
 
 class LoginDetailsScreen extends StatefulWidget {
+  final String userSelected;
   final String name;
   final String address;
   final String phoneNum;
 
   LoginDetailsScreen(
       {Key key,
+        @required this.userSelected,
       @required this.name,
       @required this.address,
       @required this.phoneNum})
@@ -21,14 +26,15 @@ class LoginDetailsScreen extends StatefulWidget {
 
   @override
   _LoginDetailsScreenState createState() =>
-      _LoginDetailsScreenState(name, address, phoneNum);
+      _LoginDetailsScreenState(userSelected, name, address, phoneNum);
 }
 
 class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
+  String userSelected;
   String name;
   String address;
   String phoneNum;
-  _LoginDetailsScreenState(this.name, this.address, this.phoneNum);
+  _LoginDetailsScreenState(this.userSelected, this.name, this.address, this.phoneNum);
 
   String email;
   String username;
@@ -38,6 +44,10 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
 
   bool correctEmail = false;
   bool correctPassword = false;
+
+  SignUpDonorController signUpDonorController = new SignUpDonorController();
+  SignUpOrganisationController signUpOrganisationController = new SignUpOrganisationController();
+  AuthenticationController _auth = new AuthenticationController();
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +85,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
                               style: TextStyle(
                                   shadows: shadows,
                                   fontWeight: FontWeight.bold,
-                                  color: kTextColor),
+                                  color: kGreenTextColor),
                             )
                           ],
                         ),
@@ -150,12 +160,7 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
                   print(name);
                   try {
                     (correctEmail && correctPassword)
-                        ? Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => DonorScreen(
-                                      donorName: name,
-                                    )))
+                        ? runAuthentication()
                         : globalKey.currentState.showSnackBar(SnackBar(
                             content: Text('Error with Email and Password')));
                   } catch (e) {
@@ -181,5 +186,20 @@ class _LoginDetailsScreenState extends State<LoginDetailsScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> runAuthentication() async{
+    if(userSelected == "Donator") {
+      signUpDonorController.enterDonorData(name, phoneNum, email, address);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DonorScreen(
+                donorName: name,
+              )));
+    } else if(userSelected == "Organisation") {
+//      signUpOrganisationController.enterOrganisationData(name, contact_no, email, address, brn_no, dietary_rules, days_accept, category)
+    }
+    _auth.registerWithEmailAndPassword(email, password);
   }
 }
