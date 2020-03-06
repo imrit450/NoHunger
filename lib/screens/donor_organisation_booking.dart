@@ -52,35 +52,39 @@ class _DonorOragnisationBookingState extends State<DonorOragnisationBooking> {
               SizedBox(
                 height: 30,
               ),
-              GestureDetector(
-                onTap: () async {
-                  DatePicker.showDatePicker(context,
-                      showTitleActions: true,
-                      minTime: DateTime(2020, 1, 1),
-                      maxTime: DateTime(2040, 12, 31), onChanged: (date) {
-                    date = date;
-                    print(date);
-                  }, onConfirm: (date) {
-                    date = date;
-                    print(date);
-                  }, currentTime: DateTime.now(), locale: LocaleType.en);
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width - 50,
-                  height: 60,
-                  margin: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
-                    color: kDarkGrey,
+              Row(
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () async {
+                      DatePicker.showDatePicker(context,
+                          showTitleActions: true,
+                          minTime: DateTime(2020, 1, 1),
+                          maxTime: DateTime(2040, 12, 31), onChanged: (date) {
+                        date = date;
+                        print(date);
+                      }, onConfirm: (date) {
+                        date = date;
+                        print(date);
+                      }, currentTime: DateTime.now(), locale: LocaleType.en);
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width - 50,
+                      height: 60,
+                      margin: EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: kGreenTextColor,
+                      ),
+                      child: Align(
+                          alignment: Alignment.center,
+                          child: Text('Pick a date',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold))),
+                    ),
                   ),
-                  child: Align(
-                      alignment: Alignment.center,
-                      child: Text('Pick a date',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 25,
-                              fontWeight: FontWeight.bold))),
-                ),
+                ],
               ),
               new Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -150,13 +154,13 @@ class _DonorOragnisationBookingState extends State<DonorOragnisationBooking> {
                 child: TextField(
                     style: TextStyle(
                       fontSize: 20.0,
-                      color: kLightGrey,
+                      color: kDarkGrey,
                     ),
                     decoration: InputDecoration(
                       hintText: 'Input Ingredients in Meal',
                       hintStyle: TextStyle(
                         fontSize: 20.0,
-                        color: kDarkGrey,
+                        color: Colors.black26,
                       ),
                       contentPadding: EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 20.0),
@@ -183,13 +187,13 @@ class _DonorOragnisationBookingState extends State<DonorOragnisationBooking> {
                 child: TextField(
                     style: TextStyle(
                       fontSize: 20.0,
-                      color: Colors.blue[400],
+                      color: kDarkGrey,
                     ),
                     decoration: InputDecoration(
                       hintText: 'Input Calories in Meal per Person',
                       hintStyle: TextStyle(
                         fontSize: 20.0,
-                        color: kDarkGrey,
+                        color: Colors.black26,
                       ),
                       contentPadding: EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 20.0),
