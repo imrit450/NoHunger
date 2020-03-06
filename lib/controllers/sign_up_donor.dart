@@ -10,7 +10,7 @@ class SignUpDonorController {
   Future enterDonorData(
       String name, String contact_no, String email, String address) async {
     final prefs = await SharedPreferences.getInstance();
-    final String uid = prefs.getString('uid') ?? 0;
+    final String uid = prefs.getString('uid') ?? null;
     return await donorCollection.document(uid).setData({
       'name': name,
       'contact_no': contact_no,

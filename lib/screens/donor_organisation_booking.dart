@@ -291,7 +291,7 @@ class _DonorOragnisationBookingState extends State<DonorOragnisationBooking> {
 
   Future<void> setDataAndChangeScreen() async {
     final prefs = await SharedPreferences.getInstance();
-    final String uid = prefs.getString('uid') ?? 0;
+    final String uid = prefs.getString('uid') ?? null;
     donationsController.enterDonation(
         uid, organisation.uid, date.toString(), time, ingredients, calories);
     Navigator.push(
