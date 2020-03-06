@@ -59,11 +59,15 @@ class OrganisationTile extends StatelessWidget {
               Text(organisation.address, style: TextStyle(color: Colors.black)),
               Row(
                 children: <Widget>[
-                  Chip(label: Text(organisation.category)),
+                  Chip(label: Text(organisation.category, style: TextStyle(
+                    fontSize: 13
+                  ),),),
                   SizedBox(
                     width: 5,
                   ),
-                  Chip(label: Text(organisation.days_accept)),
+                  Chip(label: Text(organisation.days_accept, style: TextStyle(
+                      fontSize: 13
+                  ))),
                 ],
               ),
             ],
