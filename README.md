@@ -1,7 +1,7 @@
 # NoHunger
 
 A user-friendly app that helps bridge the gap between donor and charity organisations.
-[Demo Video] (facebook.com/114415210018587/videos/638738433594588)
+[Demo Video](https://www.facebook.com/114415210018587/videos/638738433594588)
 
 ## Getting Started
 
